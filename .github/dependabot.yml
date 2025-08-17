@@ -1,0 +1,16 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: sunday
+      timezone: Europe/Berlin
+  # Enable version updates for gradle
+  - package-ecosystem: gradle
+    directory: "/"
+    schedule:
+      interval: daily
+      day: sunday
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 20
