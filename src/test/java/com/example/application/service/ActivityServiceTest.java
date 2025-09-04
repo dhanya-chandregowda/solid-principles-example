@@ -4,12 +4,16 @@ import com.example.application.controller.SupplierController;
 import com.example.application.error.ActivityNotFound;
 import com.example.application.mapper.ActivityMapper;
 import com.example.application.repository.ActivityRepository;
+
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static com.example.application.helpers.ActivityHelper.createActivity;
+import static com.example.application.helpers.SupplierHelper.createSupplier;
 import static com.getourguide.interview.helpers.ActivityHelper.createActivity;
 import static com.getourguide.interview.helpers.SupplierHelper.createSupplier;
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,7 +30,7 @@ class ActivityServiceTest {
         this.activityRepository = mock(ActivityRepository.class);
         this.activityMapper =new ActivityMapper();
         this.supplierController = mock(SupplierController.class);
-        this.activityService = new ActivityService(activityRepository,activityMapper);
+        this.activityService = new ActivityServiceImpl(activityRepository,activityMapper);
     }
 
     @Test

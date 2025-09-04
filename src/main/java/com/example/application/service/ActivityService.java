@@ -1,45 +1,28 @@
 package com.example.application.service;
 
 import com.example.application.dto.ActivityDto;
-import com.example.application.entity.Activity;
-import com.example.application.error.ActivityNotFound;
-import com.example.application.mapper.ActivityMapper;
-import com.example.application.repository.ActivityRepository;
 
-import java.util.*;
+import java.util.List;
 
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
+public interface ActivityService {
+    /**
+     * Lists all the available activities
+     * @return list of activities
+     */
+    List<ActivityDto> listAllActivities();
 
-@Service
-@AllArgsConstructor
-public class ActivityService {
-    private final ActivityRepository activityRepository;
+    /**
+     * Get activity by id
+     * @param activityId
+     * @return activity
+     */
+    ActivityDto getActivityById(Long activityId);
 
-    private final ActivityMapper activityMapper;
+    /**
+     * Search all activities matching the input parameter
+     * @param search
+     * @return list of activities
+     */
+    List<ActivityDto> searchActivities(String search);
 
-    public List<ActivityDto> listAllActivities() {
-        List<ActivityDto> result = new ArrayList<>();
-        List<Activity> activities = activityRepository.findAll();
-
-        if(!activities.isEmpty()) {
-            result = activities.stream().map(activityMapper::toDTO).toList();
-        }
-        return result;
-    }
-
-    public ActivityDto getActivityById(Long activityId) {
-        Activity activity = activityRepository.findById(activityId).orElseThrow(()-> new ActivityNotFound("Not found"));
-        return activityMapper.toDTO(activity);
-    }
-
-    public List<ActivityDto> searchActivities(String search) {
-        List<Activity> activities = activityRepository.findAll();
-        List<ActivityDto> result = new ArrayList<>();
-        if(!activities.isEmpty()) {
-            result = activities.stream().filter(a -> a.getTitle().contains(search)).map(activityMapper::toDTO).toList();
-
-        }
-        return result;
-    }
 }
